@@ -17,7 +17,7 @@ from sklearn.tree import DecisionTreeClassifier
 
 class ModelGenerator:
     def __init__(self, database, train_file, test_file, target_feature, model_num):
-        """Ограничения на размер датасэта и закоментированы классификаторы
+        """Ограничения на размер датасэта и закомментированы классификаторы
         занимающие на локальной машине слишком много времени"""
         self._database = database
         self._train_df = pd.read_csv(train_file)
