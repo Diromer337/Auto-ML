@@ -40,7 +40,7 @@ def download_csv(path: str):
     return FileResponse(path)
 
 
-@app.get('/status')
+@app.get('/')
 def get_status():
     return 'OK'
 
