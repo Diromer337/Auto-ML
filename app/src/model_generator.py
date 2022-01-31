@@ -29,9 +29,9 @@ class ModelGenerator:
         self._target_feature = target_feature
         self._model_num = model_num
         self._classifiers = [
-            # KNeighborsClassifier(3),
-            # SVC(kernel="linear", C=0.025),
-            # SVC(gamma=2, C=1),
+            KNeighborsClassifier(3),
+            SVC(kernel="linear", C=0.025),
+            SVC(gamma=2, C=1),
             # GaussianProcessClassifier(1.0 * RBF(1.0)),
             DecisionTreeClassifier(max_depth=5),
             RandomForestClassifier(max_depth=5, n_estimators=10),
