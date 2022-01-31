@@ -41,7 +41,7 @@ class ModelGenerator:
             QuadraticDiscriminantAnalysis(),
         ]
 
-    async def _fit_best_model(self):
+    def _fit_best_model(self):
         x = self._train_df.drop([self._target_feature], axis=1)
         y = self._train_df[[self._target_feature]]
 
@@ -52,7 +52,6 @@ class ModelGenerator:
         f1 = 0
         for model in self._classifiers:
             print(type(model).__name__)
-            await asyncio.sleep(0.5)
             model.fit(x_train, y_train.values.ravel())
             y_pred = model.predict(x_test)
             if f1_score(y_test, y_pred) > f1:
@@ -91,11 +90,11 @@ class ModelGenerator:
         self._test_df.to_csv(path)
         self._database.set(str(self._model_num), path)
 
-    async def predict(self):
+    def predict(self):
         if self._target_feature not in self._train_df:
             self._database.set(str(self._model_num), f'Invalid target feature {self._target_feature}')
         self._preproces_features()
         self._find_corr_features()
-        model, f1 = await self._fit_best_model()
+        model, f1 = self._fit_best_model()
         self._test_df[self._target_feature] = model.predict(self._test_df)
         self._write_to_csv(f1)
