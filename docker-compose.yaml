@@ -1,0 +1,17 @@
+version: '3'
+services:
+  app:
+    build: app/
+    ports:
+    - "8000:8000"
+    volumes:
+      - csv-volume:/app/model_results/
+
+  redis:
+    image: "redis:alpine"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  csv-volume:
+  redis_data:
