@@ -25,8 +25,6 @@ def get_model_result(model_num: int):
     model_info = DATABASE.get(str(model_num))
     if model_info is None:
         return 'Model not found!'
-    elif model_info == 'In Progress...':
-        return 'In Progress...'
     if os.path.isfile(model_info):
         path = model_info
         return f"""
@@ -34,6 +32,7 @@ def get_model_result(model_num: int):
             <p><a href="/download/?path={path}">{path}</a></p>
         </body>
         """
+    return model_info
 
 
 @app.get('/download/')
