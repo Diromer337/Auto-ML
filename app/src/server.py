@@ -4,6 +4,7 @@ from tempfile import SpooledTemporaryFile
 import redis
 from fastapi import FastAPI, UploadFile, BackgroundTasks, Form
 from fastapi.responses import HTMLResponse, RedirectResponse, FileResponse
+from starlette.concurrency import run_in_threadpool
 
 from model_generator import ModelGenerator
 
@@ -15,7 +16,7 @@ DATABASE.set('model_num', 1000)
 async def get_predict(train_file: SpooledTemporaryFile, test_file: SpooledTemporaryFile, target_feature: str,
                       model_num: int):
     model_generator = ModelGenerator(DATABASE, train_file, test_file, target_feature, model_num)
-    await model_generator.predict()
+    await run_in_threadpool(model_generator.predict)
 
 
 @app.get('/model/{model_num}', response_class=HTMLResponse)
